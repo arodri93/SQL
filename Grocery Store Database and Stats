@@ -1,0 +1,30 @@
+CREATE TABLE snacks (id INTEGER PRIMARY KEY, name TEXT, quantity NUMERIC, price INTEGER, aisle INTEGER);
+
+INSERT INTO snacks VALUES (1, "honeybuns", 47, 8, 5);
+INSERT INTO snacks VALUES (2, "mean jelly beans", 210, 4, 3);
+INSERT INTO snacks VALUES (4, "hot chips", 129, 7, 5);
+INSERT INTO snacks VALUES (5, "mike n ike", 73, 3, 10);
+INSERT INTO snacks VALUES (6, "crazy cookies", 33, 2,2);
+INSERT INTO snacks VALUES (7, "braided bread", 17, 2, 1);
+INSERT INTO snacks VALUES (8, "garlic munchies", 12, 5, 6);
+INSERT INTO snacks VALUES (10, "donut stick", 72, 38, 3);
+INSERT INTO snacks VALUES (11, "almond croissant", 10, 3,7);
+INSERT INTO snacks VALUES (12, "conchas", 41, 1, 8);
+INSERT INTO snacks VALUES (13, "mega muffins", 32, 7, 7);
+INSERT INTO snacks VALUES (14, "bagel bites", 9, 13, 8);
+
+--Display the database ordered by price.
+Select * FROM snacks 
+ORDER BY price;
+
+--Display the database ordered by aisle
+SELECT * FROM snacks
+ORDER BY aisle;
+
+--WHat is the total amount of snacks in store
+SELECT SUM(quantity)
+FROM snacks;
+
+--How many snacks in each aisle
+SELECT aisle, SUM(quantity)
+FROM snacks GROUP BY aisle;
