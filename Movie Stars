@@ -1,0 +1,65 @@
+CREATE TABLE persons (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    fullname TEXT, 
+    age INTEGER);
+    
+INSERT INTO persons (fullname,age) VALUES ("Brad Pitt", "58");
+INSERT INTO persons (fullname, age) VALUES ("Angelina Jolie", "47");
+INSERT INTO persons (fullname,age) VALUES ("Ben Affleck", "50");
+INSERT INTO persons (fullname,age) VALUES ("Jennifer Garner", "50");
+INSERT INTO persons (fullname,age) VALUES ("Scarlett Johansson", "37");
+INSERT INTO persons (fullname,age) VALUES ("Chris Evans", "41");
+INSERT INTO persons (fullname,age) VALUES ("Tom Hanks", "66");
+INSERT INTO persons (fullname,age) VALUES ("Matt Damon", "52");
+SELECT fullname, age FROM persons;
+
+CREATE TABLE movies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER,
+    name TEXT);
+INSERT INTO movies (person_id, name) VALUES (1, "Fury");
+INSERT INTO movies (person_id, name) VALUES (2, "Salt");
+INSERT INTO movies (person_id, name) VALUES (3, "The Accountant");
+INSERT INTO movies (person_id, name) VALUES (4, "Peppermint");
+INSERT INTO movies (person_id, name) VALUES (5, "The Avengers");
+INSERT INTO movies (person_id, name) VALUES (6, "The Avengers");
+INSERT INTO movies (person_id, name) VALUES (7, "Saving Private Ryan");
+INSERT INTO movies (person_id, name) VALUES (8, "Saving Private Ryan");
+
+CREATE TABLE co_stars ( 
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person5_id INTEGER,
+    person6_id INTEGER,
+    person7_id INTEGER,
+    person8_id INTEGER);
+INSERT INTO co_stars (person5_id, person6_id) VALUES (5,6);
+INSERT INTO co_stars (person7_id, person8_id) VALUES (7,8);
+
+CREATE TABLE married (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person1_id INTEGER,
+    person2_id INTEGER,
+    person3_id INTEGER,
+    person4_id INTEGER);
+INSERT INTO married (person1_id, person2_id) VALUES (1,2);
+INSERT INTO married (person3_id, person4_id) VALUES (3,4);
+
+SELECT p.fullname, m.name
+FROM persons p 
+JOIN movies m
+ON p.id=m.person_id;
+
+
+SELECT a.fullname, b.fullname as married_to
+FROM persons a
+JOIN married
+ON a.id=married.person1_id
+JOIN persons b
+ON b.id=married.person2_id;
+
+SELECT c.fullname, d.fullname as married_to
+FROM persons c
+JOIN married
+ON c.id=married.person3_id
+JOIN persons d
+ON d.id=married.person4_id;
