@@ -1,0 +1,49 @@
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
+
+#1. Select all from customers but limit 20
+  SELECT * FROM BIT_DB.customers LIMIT 20;
+
+#2. Select all from January Sales
+  SELECT * FROM BIT_DB.JanSales;
+
+#3. How many orders were placed in January? 
+  SELECT count(orderID) 
+  FROM BIT_DB.JanSales;
+
+#4. How many of those orders were for an iPhone?
+  SELECT count(orderID) 
+  FROM BIT_DB.JanSales 
+  WHERE Product='iPhone';
+
+#5. Select the customer account number for all the orders that were placed in February.
+  SELECT acctnum 
+  FROM BIT_DB.customers cust
+  INNER JOIN BIT_DB.FebSales Feb
+  ON cust.order_id=Feb.orderid;
+  
+ #6. Which product was the cheapest one sold in January, and what was the price?
+  SELECT product, min(price)
+  FROM BIT_DB.JanSales
+  GROUP BY product, price
+  ORDER BY price ASC;
+
+#7. What is the total revenue for each product sold in January? 
+  SELECT sum(quantity)*price as rev,
+  product
+  FROM BIT_DB.JanSales
+  GROUP BY product;
+
+#8. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+  SELECT location,product,quantity, SUM(quantity) * price AS rev
+  FROM BIT_DB.FebSales
+  WHERE location= '548 Lincoln St, Seattle, WA 98101'
+  GROUP BY product;
+
+#9. How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers?
+SELECT
+count(cust.acctnum),
+avg(quantity*price)
+FROM BIT_DB.FebSales Feb
+INNER JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+WHERE Feb.Quantity>2;
